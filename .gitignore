@@ -1,6 +1,7 @@
 # Intellij IDEA
 .idea/
 target/
+out/
 
 # Compiled class file
 *.class
