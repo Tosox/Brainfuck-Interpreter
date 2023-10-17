@@ -9,13 +9,12 @@ public class Main {
 
         String translated;
         if (args.length < 1) {
-            System.out.println("Enter the code to interpret:");
             translated = interpreter.translate(scanner.nextLine());
         } else {
             translated = interpreter.fromFile(args[0]);
         }
 
-        System.out.println("Output:");
         System.out.println(translated);
+        System.out.println();
     }
 }
