@@ -15,6 +15,5 @@ public class Main {
         }
 
         System.out.println(translated);
-        System.out.println();
     }
 }
