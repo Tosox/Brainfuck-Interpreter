@@ -1,8 +1,7 @@
 package de.tosoxdev.brainfuckinterpreter;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -14,19 +13,16 @@ public class BrainfuckInterpreter {
     // Simulating cell memory
     private final byte[] memory = new byte[MAX_MEMORY_SIZE];
 
-    public String fromFile(String filepath) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
-            StringBuilder sb = new StringBuilder();
-            while (reader.ready()) {
-                sb.append(reader.readLine());
-            }
-            return translate(sb.toString());
-        } catch (IOException e) {
-            return "Please provide a valid path to the file.";
+    public void fromFile(String filepath) {
+        try {
+            String contents = Files.readString(Paths.get(filepath));
+            execute(contents);
+        } catch (Exception e) {
+            System.out.println("Please provide a valid path to the file.");
         }
     }
 
-    public String translate(String code) {
+    public void execute(String code) {
         StringBuilder output = new StringBuilder();
 
         int pointer = 0;
@@ -54,7 +50,9 @@ public class BrainfuckInterpreter {
                 output.append((char)memory[pointer]);
             } else if (code.charAt(i) == ',') {
                 // ',' stores a byte of input in the byte at the data pointer
-                memory[pointer] = (byte)scanner.next().charAt(0);
+                System.out.print(output);
+                output.delete(0, output.length());
+                memory[pointer] = (byte) scanner.next().charAt(0);
             } else if (code.charAt(i) == '[') {
                 // '[' jumps forward to the command after the matching ']' command
                 // if the byte at the data pointer is zero
@@ -87,6 +85,6 @@ public class BrainfuckInterpreter {
             }
         }
 
-        return output.toString();
+        System.out.println(output);
     }
 }

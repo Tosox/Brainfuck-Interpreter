@@ -7,13 +7,10 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         BrainfuckInterpreter interpreter = new BrainfuckInterpreter();
 
-        String translated;
         if (args.length < 1) {
-            translated = interpreter.translate(scanner.nextLine());
+            interpreter.execute(scanner.nextLine());
         } else {
-            translated = interpreter.fromFile(args[0]);
+            interpreter.fromFile(args[0]);
         }
-
-        System.out.println(translated);
     }
 }
